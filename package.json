@@ -10,6 +10,6 @@
   "author": "",
   "license": "BSD",
   "dependencies": {
-    "request": "~2.27.0"
+    "tp-api": "*"
   }
 }

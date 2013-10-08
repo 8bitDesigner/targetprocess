@@ -1,7 +1,13 @@
 var request = require("request")
   , fs = require('fs')
   , path = require('path')
-  , config = require(path.join(process.env.HOME, '.targetprocess.json'))
+  , Api = require('tp-api')
+
+var config = require(path.join(process.env.HOME, '.targetprocess.json'))
+  , tp = new Api({
+      domain: config.domain,
+      token: config.token
+    })
 
 function isntState(state) {
   return function(item) {
@@ -21,17 +27,12 @@ function sortBy(prop) {
   }
 }
 
-request({
-  url: config.root + 'Tasks',
-  json: true,
-  qs: {
-    take: 1000,
-    where: "(AssignedUser.FirstName eq 'Paul') and (AssignedUser.LastName eq 'Sweeney')",
-    include: '[Name, Description, Project, EntityState, NumericPriority]'
-  },
-  headers: { Authorization: 'Basic '+ config.token }
-}, function(err, res, json) {
-  json.Items.filter(isntState('Done')).sort(sortBy('NumericPriority')).forEach(function(item) {
-    console.log('[ '+item.Id+' ] '+ item.Name)
-  })
+var dingus = process.argv.pop()
+
+tp[dingus](function(err, body) {
+  console.log(dingus, body)
+  if (err) console.error('err', err)
+})
+
+tp.tasks(function(err, tasks) {
 })
