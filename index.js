@@ -17,6 +17,7 @@ if (process.argv[2] === 'open') {
     if (err) console.error('err', err)
   })
 } else {
+  // Fetch current users tasks from their default context
   tp('Context').then(function(err, ctx) {
     tp('Tasks').
       where("(AssignedUser.Id eq "+ctx.LoggedUser.Id+") and (EntityState.Name ne 'Done')").
@@ -29,5 +30,30 @@ if (process.argv[2] === 'open') {
         })
       })
   })
-}
 
+
+  // Task modifications
+  // tp('Tasks').
+  //   where('(Id eq 4963)').
+  //   thenEntities(function(err, tasks){
+  //     tasks.forEach(function(task, index){
+  //       console.log(task)
+  //       console.log('attempting entity update')
+        
+  //       // DELETE
+  //       task.delete()
+
+  //       // PATCH
+  //       // task.update({
+  //       //   Name: "Ermagerd, NERW TITLE"
+  //       // }, function(err, data){
+  //       //   console.log('ermagerd, urpdates')
+  //       //   console.log(data)
+  //       // })
+  //     })
+  //   })
+
+  
+  
+
+}
