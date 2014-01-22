@@ -17,19 +17,21 @@ if (process.argv[2] === 'open') {
     if (err) console.error('err', err)
   })
 } else {
+  tp('Tasks').comment('4976', 'ohai there, 4976.')
+
   // Fetch current users tasks from their default context
-  tp('Context').then(function(err, ctx) {
-    tp('Tasks').
-      where("(AssignedUser.Id eq "+ctx.LoggedUser.Id+") and (EntityState.Name ne 'Done')").
-      take(100).
-      pluck('Name', 'Description', 'UserStory[Name]', 'Team[Name]', 'Project[Name]').
-      sortBy('NumericPriority').
-      then(function(err, tasks) {
-        tasks.forEach(function(task) {
-          console.log('['+task.Id+'] '+task.Name);
-        })
-      })
-  })
+  // tp('Context').then(function(err, ctx) {
+  //   tp('Tasks').
+  //     where("(AssignedUser.Id eq "+ctx.LoggedUser.Id+") and (EntityState.Name ne 'Done')").
+  //     take(100).
+  //     pluck('Name', 'Description', 'UserStory[Name]', 'Team[Name]', 'Project[Name]').
+  //     sortBy('NumericPriority').
+  //     then(function(err, tasks) {
+  //       tasks.forEach(function(task) {
+  //         console.log('['+task.Id+'] '+task.Name);
+  //       })
+  //     })
+  // })
 
 
   // Task modifications
@@ -54,6 +56,6 @@ if (process.argv[2] === 'open') {
   //   })
 
   
-  
+
 
 }
